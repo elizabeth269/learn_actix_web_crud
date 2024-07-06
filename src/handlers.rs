@@ -4,7 +4,7 @@ use uuid::Uuid;
 use crate::models::Item;
 
 #[derive(Debug, Clone)]
-struct AppState {
+pub struct AppState {
     items: std::sync::Mutex<Vec<Item>>,
 }
 
