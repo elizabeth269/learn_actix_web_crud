@@ -1,6 +1,5 @@
 use actix_web::{web, App, HttpServer};
-use handlers::{create_item, delete_item, get_item, get_items, update_item};
-use models::Item;
+use handlers::{create_item, delete_item, get_item, get_items, update_item, AppState}; // Import AppState
 use std::sync::Arc;
 use std::sync::Mutex;
 
