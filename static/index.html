@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actix Web CRUD</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Actix Web CRUD Frontend</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Actix Web CRUD</h1>
-        <form id="item-form">
-            <input type="text" id="item-name" placeholder="Item Name" required>
-            <button type="submit">Add Item</button>
-        </form>
-        <ul id="item-list"></ul>
+    <h1>CRUD Operations</h1>
+    <div>
+        <h2>Create Item</h2>
+        <input type="text" id="itemName" placeholder="Item Name">
+        <button onclick="createItem()">Create</button>
     </div>
-    <script src="script.js"></script>
+    <div>
+        <h2>Items</h2>
+        <ul id="itemsList"></ul>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
