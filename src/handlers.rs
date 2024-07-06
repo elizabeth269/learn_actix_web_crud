@@ -1,11 +1,12 @@
-use actix_web::{delete, get, post, put, web, HttpResponse, Responder};
-use uuid::Uuid;
-
 use crate::models::Item;
+use actix_web::{delete, get, post, put, web, HttpResponse, Responder};
+use std::sync::Arc;
+use std::sync::Mutex;
+use uuid::Uuid;
 
 #[derive(Debug, Clone)]
 pub struct AppState {
-    pub items: std::sync::Mutex<Vec<Item>>,
+    pub items: Arc<Mutex<Vec<Item>>>,
 }
 
 #[post("/items")]

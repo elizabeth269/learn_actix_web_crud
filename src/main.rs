@@ -1,22 +1,26 @@
+use actix_web::{web, App, HttpServer};
+use handlers::{create_item, delete_item, get_item, get_items, update_item};
+use models::Item;
+use std::sync::Arc;
+use std::sync::Mutex;
+
 mod handlers;
 mod models;
-mod routes;
-
-use actix_files::Files;
-use actix_web::{web, App, HttpServer};
-use handlers::AppState;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let data = web::Data::new(AppState {
-        items: std::sync::Mutex::new(Vec::new()),
+        items: Arc::new(Mutex::new(Vec::new())),
     });
 
     HttpServer::new(move || {
         App::new()
             .app_data(data.clone())
-            .configure(routes::configure)
-            .service(Files::new("/", "./static").index_file("index.html"))
+            .service(create_item)
+            .service(get_items)
+            .service(get_item)
+            .service(update_item)
+            .service(delete_item)
     })
     .bind("127.0.0.1:8080")?
     .run()
