@@ -5,7 +5,7 @@ use crate::models::Item;
 
 #[derive(Debug, Clone)]
 pub struct AppState {
-    items: std::sync::Mutex<Vec<Item>>,
+    pub items: std::sync::Mutex<Vec<Item>>,
 }
 
 #[post("/items")]
@@ -32,7 +32,7 @@ async fn get_item(path: web::Path<Uuid>, data: web::Data<AppState>) -> impl Resp
     if let Some(item) = items.iter().find(|&item| item.id == id) {
         HttpResponse::Ok().json(item)
     } else {
-        HttpResponse::NotFound().finish()
+        HttpResponse::NotFound().body(format!("Item with ID {} not found", id))
     }
 }
 
@@ -48,7 +48,7 @@ async fn update_item(
         existing_item.name = item.name.clone();
         HttpResponse::Ok().json(existing_item)
     } else {
-        HttpResponse::NotFound().finish()
+        HttpResponse::NotFound().body(format!("Item with ID {} not found", id))
     }
 }
 
@@ -60,6 +60,6 @@ async fn delete_item(path: web::Path<Uuid>, data: web::Data<AppState>) -> impl R
         items.remove(pos);
         HttpResponse::NoContent().finish()
     } else {
-        HttpResponse::NotFound().finish()
+        HttpResponse::NotFound().body(format!("Item with ID {} not found", id))
     }
 }
